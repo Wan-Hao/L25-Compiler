@@ -1,0 +1,18 @@
+program TryCatchNoErrorTest {
+    main {
+        let result = 0;
+        try {
+            output("Executing try block.");
+            let a = 10;
+            let b = 2;
+            result = a / b;
+            output("No error occurred.");
+        }
+        catch {
+            output("This should not be printed.");
+            result = -1;
+        };
+
+        output("Final result is:", result);
+    }
+}

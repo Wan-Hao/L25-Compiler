@@ -1,0 +1,128 @@
+/* General Body Styles */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #1e1e1e;
+    color: #d4d4d4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header Styles */
+header {
+    background-color: #252526;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid #333;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    color: #dcdcaa; /* A nice color for titles */
+}
+
+header p {
+    margin: 0.5rem 0 0;
+    color: #8c8c8c;
+}
+
+/* Main Container Layout */
+.container {
+    display: flex;
+    flex: 1;
+    padding: 1rem;
+    gap: 1rem;
+}
+
+.editor-pane, .output-pane {
+    background-color: #252526;
+    border-radius: 8px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.editor-pane h2, .output-pane h2 {
+    margin-top: 0;
+    color: #9cdcfe;
+    border-bottom: 1px solid #333;
+    padding-bottom: 0.5rem;
+}
+
+/* Controls and Buttons */
+.controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.example-buttons {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.example-buttons span {
+    font-weight: bold;
+    color: #ce9178;
+}
+
+button {
+    background-color: #0e639c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #1177bb;
+}
+
+button:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+}
+
+/* Editor and Output Area */
+#code-editor {
+    flex-grow: 1;
+    background-color: #1e1e1e;
+    color: #d4d4d4;
+    border: 1px solid #333;
+    border-radius: 5px;
+    padding: 1rem;
+    font-family: "SF Mono", "Fira Code", "Menlo", monospace;
+    font-size: 1rem;
+    line-height: 1.5;
+    resize: none;
+}
+
+#output-area {
+    flex-grow: 1;
+    background-color: #1e1e1e;
+    color: #d4d4d4;
+    border: 1px solid #333;
+    border-radius: 5px;
+    padding: 1rem;
+    white-space: pre-wrap; /* Wrap long lines */
+    word-wrap: break-word; /* Break long words */
+    font-family: "SF Mono", "Fira Code", "Menlo", monospace;
+}
+
+.error-text {
+    color: #f48771; /* A distinct error color */
+    font-weight: bold;
+}

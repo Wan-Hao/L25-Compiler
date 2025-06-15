@@ -1,0 +1,33 @@
+program StructFeatureTest {
+
+    struct Vector2 {
+        x,
+        y
+    };
+
+    func print_vector(v) {
+        output("Vector:", v.x, v.y);
+        return 0;
+    }
+
+    func scale_vector(v, factor) {
+        let new_v = Vector2(0, 0);
+        new_v.x = v.x * factor;
+        new_v.y = v.y * factor;
+        return new_v;
+    }
+
+    main {
+        let pos = Vector2(10, 20);
+        output("Initial position x:", pos.x);
+        
+        pos.x = 15;
+        output("Updated position x:", pos.x);
+
+        print_vector(pos);
+
+        let scaled_pos = scale_vector(pos, 3);
+        output("Scaled vector:");
+        print_vector(scaled_pos);
+    }
+}

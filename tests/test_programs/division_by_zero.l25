@@ -1,0 +1,13 @@
+program TryCatchTest {
+    main {
+        let x = 10;
+        let y = 0;
+
+        try {
+            output(x / y);
+        }
+        catch {
+            output(0);
+        };
+    }
+}

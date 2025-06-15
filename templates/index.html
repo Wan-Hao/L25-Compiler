@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L25 Online Compiler</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        // Store examples passed from Flask. Using 'var' for better compatibility.
+        var examples = {{ examples|tojson|safe }};
+
+        function loadExample(name) {
+            const editor = document.getElementById('code-editor');
+            if (examples[name]) {
+                editor.value = examples[name];
+            }
+        }
+
+        async function runCode() {
+            const editor = document.getElementById('code-editor');
+            const outputArea = document.getElementById('output-area');
+            const runButton = document.getElementById('run-button');
+            
+            outputArea.textContent = 'Running...';
+            runButton.disabled = true;
+
+            try {
+                const response = await fetch('/compile', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ code: editor.value }),
+                });
+
+                const result = await response.json();
+
+                let displayText = '';
+                if (result.output) {
+                    displayText += result.output;
+                }
+                if (result.error) {
+                    // Use innerHTML to render the span correctly
+                    displayText += `\n<span class="error-text">Error: ${result.error}</span>`;
+                }
+                outputArea.innerHTML = displayText;
+
+            } catch (error) {
+                outputArea.innerHTML = `<span class="error-text">Network or Server Error: ${error}</span>`;
+            } finally {
+                runButton.disabled = false;
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>L25 Online Compiler</h1>
+    </header>
+    <main class="container">
+        <div class="editor-pane">
+            <h2>Code Editor</h2>
+            <div class="controls">
+                <div class="example-buttons">
+                    <span>Load Example:</span>
+                    <button onclick="loadExample('basic')">Basic</button>
+                    <button onclick="loadExample('factorial')">Factorial</button>
+                    <button onclick="loadExample('full')">Full Features</button>
+                    <button onclick="loadExample('try_catch')">Try/Catch</button>
+                </div>
+                <button id="run-button" onclick="runCode()">Run</button>
+            </div>
+            <textarea id="code-editor" spellcheck="false" rows="25"></textarea>
+        </div>
+        <div class="output-pane">
+            <h2>Output</h2>
+            <pre id="output-area"></pre>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,19 @@
+program StringFeatureTest {
+    main {
+        let s1 = "hello";
+        let s2 = "world";
+        let space = " ";
+
+        let message = s1 + space + s2;
+        output(message);
+        
+        let num_str = "Number is " + 123;
+        output(num_str);
+
+        let repeated = "abc" * 3;
+        output(repeated);
+
+        let empty_str = "" * 10;
+        output("Empty string test:", empty_str);
+    }
+}

@@ -1,0 +1,37 @@
+program FullFeatureTest {
+    struct Point {
+        x,
+        y
+    };
+
+    func printPoint(p) {
+        output("Point", p.x, p.y);
+        return 0;
+    }
+
+    main {
+        let greeting = "Hello";
+        let world = "World";
+        let message = greeting + " " + world + "!";
+        output(message);
+        output("-" * 10);
+
+        let my_array = [10, 20, 30];
+        output("First:", my_array[0]);
+        my_array[1] = 99;
+        output("Second:", my_array[1]);
+
+        let p1 = Point(5, 8);
+        printPoint(p1);
+        p1.y = p1.y + my_array[0];
+        output("Updated y:", p1.y);
+        
+        let a = 100;
+        let b = 0;
+        try {
+            output(a / b);
+        } catch {
+            output("Caught!");
+        };
+    }
+}

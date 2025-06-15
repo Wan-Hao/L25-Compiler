@@ -1,0 +1,26 @@
+program BaseLanguageTest {
+    
+    func countdown(n) {
+        while (n > 0) {
+            output(n);
+            n = n - 1;
+        };
+        output("Go!");
+        return 0;
+    }
+
+    main {
+        let a = 10;
+        let b = 20;
+        let c = (a + b) * 2;
+        output("Calculation result:", c);
+
+        if (c >= 60) {
+            output("It is 60 or more.");
+        } else {
+            output("It is less than 60.");
+        };
+
+        countdown(3);
+    }
+}

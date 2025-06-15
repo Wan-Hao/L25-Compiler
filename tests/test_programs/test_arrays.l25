@@ -1,0 +1,25 @@
+program ArrayFeatureTest {
+
+    func sum_array(arr) {
+        let sum = 0;
+        let i = 0;
+        let len = 3; 
+        
+        while (i < len) {
+            sum = sum + arr[i];
+            i = i + 1;
+        };
+        return sum;
+    }
+
+    main {
+        let data = [100, 200, 300];
+        output("Data at index 1:", data[1]);
+
+        data[1] = 250;
+        output("Updated data at index 1:", data[1]);
+
+        let total = sum_array(data);
+        output("Sum of array is:", total);
+    }
+}

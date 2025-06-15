@@ -1,0 +1,18 @@
+program FactorialTest {
+
+    func factorial(n) {
+        let result = 1;
+        if (n > 1) {
+            result = n * factorial(n - 1);
+        };
+        return result;
+    }
+
+    main {
+        let number = 7;
+        output("Factorial of", number, "is", factorial(number));
+
+        let anotherNumber = 0;
+        output("Factorial of", anotherNumber, "is", factorial(anotherNumber));
+    }
+}
