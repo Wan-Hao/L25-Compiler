@@ -121,3 +121,63 @@ program MyApp {
 作为 第四组 的作业，我需要你完成上述对应的要求。
 
 ---
+
+## 更新后的 EBNF
+```ebnf
+(*)<program>      = "program" <ident> "{" { <struct_def> | <func_def> } "main" "{" <stmt_list> "}" "}"
+
+   <func_def>      = "func" <ident> "(" [ <param_list> ] ")" "{" <stmt_list> "return" <expr> ";" "}"
+
+(*)<struct_def>    = "struct" <ident> "{" <param_list> "}" ";"
+
+   <param_list>    = <ident> { "," <ident> }
+
+   <stmt_list>     = <stmt> ";" { <stmt> ";" }
+
+(*)<stmt>          = <declare_stmt> | <assign_stmt> | <if_stmt> | <while_stmt>
+                  | <input_stmt> | <output_stmt> | <func_call> | <try_catch_stmt>
+
+(*)<try_catch_stmt> = "try" "{" <stmt_list> "}" "catch" "{" <stmt_list> "}"
+
+   <declare_stmt>  = "let" <ident> [ "=" <expr> ]
+
+(*)<assign_stmt>   = <lvalue> "=" <expr>
+
+(*)<lvalue>        = <ident> { "." <ident> | "[" <expr> "]" }
+
+   <if_stmt>       = "if" "(" <bool_expr> ")" "{" <stmt_list> "}" [ "else" "{" <stmt_list> "}" ]
+
+   <while_stmt>    = "while" "(" <bool_expr> ")" "{" <stmt_list> "}"
+
+(*)<func_call>     = <ident_path> "(" [ <arg_list> ] ")"
+                   (* 注意: func_call现在可以是 a.b() 这样的形式 *)
+
+   <arg_list>      = <expr> { "," <expr> }
+
+   <input_stmt>    = "input" "(" <ident> { "," <ident> } ")"
+
+   <output_stmt>   = "output" "(" <expr> { "," <expr> } ")"
+
+   <bool_expr>     = <expr> ("==" | "!=" | "<" | "<=" | ">" | ">=") <expr>
+
+   <expr>          = [ "+" | "-" ] <term> { ("+" | "-") <term> }
+
+   <term>          = <factor> { ("*" | "/") <factor> }
+
+(*)<factor>        = <primary> { <accessor> }
+
+(*)<primary>       = <ident> | <number> | <string_literal> | <array_literal> | "(" <expr> ")"
+
+(*)<accessor>      = "." <ident>             (* Member Access *)
+                  | "[" <expr> "]"          (* Array Access *)
+                  | "(" [ <arg_list> ] ")"  (* Function Call / Struct Init *)
+
+(*)<array_literal> = "[" [ <arg_list> ] "]"
+
+(*)<ident_path>    = <ident> { "." <ident> } (* 用于 a.b 这样的函数调用路径 *)
+
+   <ident>         = <letter> { <letter> | <digit> | "_" }
+   <number>        = <digit> { <digit> }
+(*)<string_literal> = "\"" { <any_char_except_quote> } "\""
+```
+

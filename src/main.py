@@ -1,13 +1,15 @@
 import argparse
 import sys
-from src.lexer import Lexer
-from src.parser import Parser
-from src.interpreter import Interpreter
-from src.error import CompilerError
+from lexer import Lexer
+from parser import Parser
+from interpreter import Interpreter
+from error import CompilerError
+from visualizer import ASTVisualizer
 
 def main():
     arg_parser = argparse.ArgumentParser(description='L25 Compiler and Interpreter')
     arg_parser.add_argument('file_path', help='Path to the L25 source file')
+    arg_parser.add_argument('--visualize', action='store_true', help='Visualize the AST')
     args = arg_parser.parse_args()
 
     try:
@@ -24,8 +26,15 @@ def main():
         
         # 2. Parsing (Syntax Analysis)
         parser = Parser(tokens)
-
-        # 3. Interpretation
+        
+        # If visualization is requested, generate and print the AST diagram
+        if args.visualize:
+            ast = parser.parse()  # Get the AST without interpreting
+            visualizer = ASTVisualizer(ast)
+            print(visualizer.generate())
+            sys.exit(0)
+        
+        # 3. Interpretation (only if not visualizing)
         interpreter = Interpreter(parser)
         interpreter.interpret()
 

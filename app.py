@@ -6,6 +6,7 @@ from src.lexer import Lexer
 from src.parser import Parser
 from src.interpreter import Interpreter
 from src.error import CompilerError
+from src.visualizer import ASTVisualizer  # Add this import
 
 # We need to make the 'src' directory available for imports
 sys.path.insert(0, './src')
@@ -34,6 +35,11 @@ def load_examples():
 def index():
     """Serve the main HTML page."""
     return render_template('index.html', examples=EXAMPLES)
+
+@app.route('/ast-viewer')
+def ast_viewer():
+    """Serve the AST visualization page."""
+    return render_template('ast_viewer.html', examples=EXAMPLES)
 
 @app.route('/compile', methods=['POST'])
 def compile_code():
@@ -67,6 +73,37 @@ def compile_code():
         'output': output_string,
         'error': error_string
     })
+
+@app.route('/visualize', methods=['POST'])
+def visualize_ast():
+    """API endpoint to generate AST visualization."""
+    source_code = request.json.get('code', '')
+    
+    try:
+        lexer = Lexer(source_code)
+        tokens = lexer.tokens()
+        parser = Parser(tokens)
+        ast = parser.parse()  # Get the AST without interpreting
+        
+        # Generate Mermaid diagram
+        visualizer = ASTVisualizer(ast)
+        mermaid_graph = visualizer.generate()
+        
+        return jsonify({
+            'mermaid': mermaid_graph,
+            'error': None
+        })
+        
+    except CompilerError as e:
+        return jsonify({
+            'mermaid': None,
+            'error': str(e)
+        })
+    except Exception as e:
+        return jsonify({
+            'mermaid': None,
+            'error': f"An unexpected system error occurred: {e}"
+        })
 
 if __name__ == '__main__':
     load_examples()

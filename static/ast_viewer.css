@@ -1,0 +1,552 @@
+/* AST Viewer Specific Styles */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 25%, #0f3460 75%, #533a7b 100%);
+    color: #e8e6f0;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Header */
+header {
+    background: linear-gradient(135deg, #2d1b69 0%, #11998e 50%, #38ef7d 100%);
+    border-bottom: 3px solid #00d4aa;
+    padding: 1.5rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(0, 212, 170, 0.3);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1600px;
+    margin: 0 auto;
+    gap: 2rem;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2rem;
+    color: #ffffff;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.nav-link {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 0.8rem 1.5rem;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+}
+
+.nav-link:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Main Layout */
+.main-container {
+    display: flex;
+    flex: 1;
+    gap: 2rem;
+    padding: 2rem 4rem;
+    max-width: 1600px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 400px;
+    background: linear-gradient(145deg, #2a2d47 0%, #1e2139 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 2rem;
+    height: fit-content;
+    position: sticky;
+    top: 100px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.editor-section h2 {
+    margin: 0 0 1rem 0;
+    color: #f0f6fc;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-bottom: 2px solid #21262d;
+    padding-bottom: 0.5rem;
+}
+
+/* Controls */
+.controls {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.example-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.example-buttons label {
+    font-weight: 600;
+    color: #7d8590;
+    font-size: 0.9rem;
+}
+
+.example-btn {
+    background: linear-gradient(145deg, #21262d 0%, #30363d 100%);
+    color: #e6edf3;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+}
+
+.example-btn:hover {
+    background: linear-gradient(145deg, #30363d 0%, #373e47 100%);
+    border-color: #58a6ff;
+    color: #f0f6fc;
+    transform: translateY(-1px);
+}
+
+.primary-btn {
+    background: linear-gradient(145deg, #238636 0%, #2ea043 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(35, 134, 54, 0.3);
+}
+
+.primary-btn:hover:not(:disabled) {
+    background: linear-gradient(145deg, #2ea043 0%, #238636 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(35, 134, 54, 0.4);
+}
+
+.primary-btn:disabled {
+    background: #373e47;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Code Editor */
+#code-editor {
+    width: 100%;
+    background: linear-gradient(145deg, #0d1117 0%, #161b22 100%);
+    color: #e6edf3;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 1rem;
+    font-family: "SF Mono", "Fira Code", "Consolas", monospace;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    resize: vertical;
+    min-height: 300px;
+    transition: border-color 0.2s ease;
+}
+
+#code-editor:focus {
+    outline: none;
+    border-color: #58a6ff;
+    box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.2);
+}
+
+/* Diagram Section */
+.diagram-section {
+    flex: 1;
+    background: linear-gradient(145deg, #2a2d47 0%, #1e2139 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 2.5rem;
+    min-height: calc(100vh - 140px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.diagram-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #4ecdc4;
+    padding-bottom: 1rem;
+}
+
+.diagram-header h2 {
+    margin: 0;
+    color: #61dafb;
+    font-size: 1.4rem;
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Error Message */
+.error-message {
+    background: linear-gradient(145deg, #3c1618 0%, #67060a 100%);
+    border: 1px solid #f85149;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    color: #ffa198;
+    font-weight: 500;
+    display: none;
+}
+
+/* Diagram Container */
+.diagram-container {
+    background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%);
+    border: 2px solid #ffd93d;
+    border-radius: 16px;
+    padding: 2rem;
+    min-height: 500px;
+    overflow: auto;
+    position: relative;
+    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.diagram-container::before {
+    content: '🌳 AST Visualization';
+    position: absolute;
+    top: -12px;
+    left: 20px;
+    background: linear-gradient(135deg, #ffd93d 0%, #ff9a56 100%);
+    color: #1a1a2e;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(255, 217, 61, 0.3);
+    z-index: 10;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    color: #7d8590;
+    padding: 3rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+}
+
+.empty-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+.empty-state h3 {
+    margin: 0 0 0.5rem 0;
+    color: #e6edf3;
+    font-weight: 600;
+}
+
+.empty-state p {
+    margin: 0;
+    max-width: 400px;
+    line-height: 1.5;
+}
+
+/* Loading State */
+.loading {
+    text-align: center;
+    color: #58a6ff;
+    font-weight: 500;
+    padding: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+    font-size: 1.1rem;
+}
+
+.loading::after {
+    content: "...";
+    animation: dots 1.5s steps(4, end) infinite;
+}
+
+@keyframes dots {
+    0%, 20% { color: transparent; }
+    40% { color: #58a6ff; }
+    100% { color: transparent; }
+}
+
+/* Mermaid Diagram Styling */
+.mermaid {
+    background: transparent !important;
+    text-align: center;
+    font-size: 16px;
+}
+
+/* Enhanced node styling with better colors and contrast */
+.mermaid text {
+    fill: #ffffff !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    font-family: "SF Mono", "Fira Code", "JetBrains Mono", monospace !important;
+}
+
+/* Different node types with distinct colors for better categorization */
+.mermaid .node rect {
+    fill: #667eea !important;
+    stroke: #4c63d2 !important;
+    stroke-width: 3px !important;
+    rx: 10px !important;
+    ry: 10px !important;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)) !important;
+}
+
+.mermaid .node circle {
+    fill: #11998e !important;
+    stroke: #0d7377 !important;
+    stroke-width: 3px !important;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)) !important;
+}
+
+.mermaid .node ellipse {
+    fill: #ff6b6b !important;
+    stroke: #ff5252 !important;
+    stroke-width: 3px !important;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)) !important;
+}
+
+.mermaid .node polygon {
+    fill: #ffd93d !important;
+    stroke: #ffcc02 !important;
+    stroke-width: 3px !important;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)) !important;
+}
+
+/* Enhanced edge styling for better visibility */
+.mermaid .edgePath .path {
+    stroke: #61dafb !important;
+    stroke-width: 4px !important;
+    stroke-linecap: round !important;
+    stroke-linejoin: round !important;
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2)) !important;
+}
+
+/* Better edge labels with improved styling and visibility */
+.mermaid .edgeLabel {
+    background-color: rgba(255, 255, 255, 0.95) !important;
+    color: #1a1a2e !important;
+    font-weight: 700 !important;
+    font-size: 14px !important;
+    border-radius: 10px !important;
+    padding: 8px 14px !important;
+    border: 2px solid #4ecdc4 !important;
+    backdrop-filter: blur(6px) !important;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4) !important;
+    min-width: 40px !important;
+    text-align: center !important;
+}
+
+.mermaid .edgeLabel rect {
+    fill: rgba(255, 255, 255, 0.95) !important;
+    stroke: #4ecdc4 !important;
+    stroke-width: 2px !important;
+    rx: 10px !important;
+    ry: 10px !important;
+    filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.3)) !important;
+}
+
+.mermaid .edgeLabel span {
+    background-color: transparent !important;
+    color: #1a1a2e !important;
+    font-weight: 700 !important;
+    font-family: "SF Mono", "Fira Code", "JetBrains Mono", monospace !important;
+    text-shadow: none !important;
+    letter-spacing: 0.5px !important;
+}
+
+/* Alternative styling for different edge types */
+.mermaid .edgeLabel.param {
+    background-color: rgba(102, 126, 234, 0.95) !important;
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+}
+
+.mermaid .edgeLabel.field {
+    background-color: rgba(255, 107, 107, 0.95) !important;
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+}
+
+.mermaid .edgeLabel.value {
+    background-color: rgba(17, 153, 142, 0.95) !important;
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+}
+
+/* Node labels with consistent styling */
+.mermaid .node .label {
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    font-family: "SF Mono", "Fira Code", "JetBrains Mono", monospace !important;
+}
+
+/* Hover effects for better interactivity */
+.mermaid .node:hover rect,
+.mermaid .node:hover circle,
+.mermaid .node:hover ellipse,
+.mermaid .node:hover polygon {
+    stroke-width: 4px !important;
+    opacity: 0.8 !important;
+    transform: scale(1.05) !important;
+    transition: all 0.2s ease !important;
+}
+
+/* Enhanced edge label positioning and spacing */
+.mermaid .edgeLabel {
+    margin: 6px !important;
+    white-space: nowrap !important;
+    overflow: visible !important;
+    z-index: 15 !important;
+    position: relative !important;
+}
+
+/* Ensure edge labels are always readable */
+.mermaid .edgeLabel foreignObject {
+    overflow: visible !important;
+}
+
+.mermaid .edgeLabel div {
+    display: inline-block !important;
+    background-color: rgba(255, 255, 255, 0.95) !important;
+    color: #1a1a2e !important;
+    font-weight: 700 !important;
+    font-size: 14px !important;
+    border-radius: 10px !important;
+    padding: 8px 14px !important;
+    border: 2px solid #4ecdc4 !important;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4) !important;
+    min-width: 50px !important;
+    text-align: center !important;
+}
+
+/* Force better contrast for all edge labels */
+.mermaid .edgeLabel * {
+    color: #1a1a2e !important;
+    font-weight: 700 !important;
+}
+
+/* Arrow styling */
+.mermaid .arrowheadPath {
+    fill: #61dafb !important;
+    stroke: #61dafb !important;
+    stroke-width: 2px !important;
+}
+
+/* Add scrollbar styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #4ecdc4, #61dafb);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #61dafb, #4ecdc4);
+}
+
+/* Responsive Design */
+@media (max-width: 1400px) {
+    .main-container {
+        padding: 2rem;
+    }
+}
+
+@media (max-width: 1200px) {
+    .main-container {
+        flex-direction: column;
+        gap: 2rem;
+    }
+    
+    .sidebar {
+        width: 100%;
+        position: static;
+        margin-bottom: 2rem;
+    }
+    
+    .diagram-section {
+        min-height: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-container {
+        padding: 1rem;
+    }
+    
+    .sidebar,
+    .diagram-section {
+        padding: 1.5rem;
+    }
+    
+    header {
+        padding: 1rem;
+    }
+    
+    .header-content {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+
+    .nav-link {
+        width: 100%;
+        text-align: center;
+    }
+
+    #code-editor {
+        padding: 1.5rem;
+        font-size: 1rem;
+        min-height: 300px;
+    }
+
+    .diagram-container {
+        padding: 1.5rem;
+    }
+}

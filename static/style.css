@@ -1,56 +1,114 @@
 /* General Body Styles */
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background-color: #1e1e1e;
-    color: #d4d4d4;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 25%, #0f3460 75%, #533a7b 100%);
+    color: #e8e6f0;
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    background-attachment: fixed;
 }
 
 /* Header Styles */
 header {
-    background-color: #252526;
-    padding: 1rem 2rem;
-    border-bottom: 1px solid #333;
+    background: linear-gradient(135deg, #2d1b69 0%, #11998e 50%, #38ef7d 100%);
+    padding: 2rem;
+    border-bottom: 3px solid #00d4aa;
     text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 212, 170, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+    animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
 }
 
 header h1 {
     margin: 0;
-    font-size: 1.8rem;
-    color: #dcdcaa; /* A nice color for titles */
+    font-size: 2.2rem;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    font-weight: 700;
+    letter-spacing: 1px;
+    position: relative;
+    z-index: 1;
 }
 
 header p {
-    margin: 0.5rem 0 0;
-    color: #8c8c8c;
+    margin: 0.8rem 0 0;
+    color: #e0f7ff;
+    font-size: 1.1rem;
+    font-weight: 500;
+    position: relative;
+    z-index: 1;
 }
 
 /* Main Container Layout */
 .container {
     display: flex;
     flex: 1;
-    padding: 1rem;
-    gap: 1rem;
+    padding: 2rem 4rem;
+    gap: 3rem;
+    max-width: 1600px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .editor-pane, .output-pane {
-    background-color: #252526;
-    border-radius: 8px;
-    padding: 1.5rem;
+    background: linear-gradient(145deg, #2a2d47 0%, #1e2139 100%);
+    border-radius: 20px;
+    padding: 2.5rem;
     display: flex;
     flex-direction: column;
     width: 50%;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.editor-pane::before, .output-pane::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffeaa7);
+    background-size: 300% 100%;
+    animation: gradientShift 4s ease infinite;
+}
+
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
 }
 
 .editor-pane h2, .output-pane h2 {
     margin-top: 0;
-    color: #9cdcfe;
-    border-bottom: 1px solid #333;
-    padding-bottom: 0.5rem;
+    color: #61dafb;
+    border-bottom: 2px solid #4ecdc4;
+    padding-bottom: 0.8rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 /* Controls and Buttons */
@@ -58,71 +116,399 @@ header p {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     flex-wrap: wrap;
     gap: 1rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    backdrop-filter: blur(5px);
 }
 
 .example-buttons {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.8rem;
     flex-wrap: wrap;
 }
 
 .example-buttons span {
-    font-weight: bold;
-    color: #ce9178;
+    font-weight: 600;
+    color: #ffd93d;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    font-size: 1rem;
 }
 
 button {
-    background-color: #0e639c;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     border: none;
-    border-radius: 5px;
-    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    padding: 0.8rem 1.5rem;
     font-size: 0.9rem;
-    font-weight: bold;
+    font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
 }
 
 button:hover {
-    background-color: #1177bb;
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+button:hover::before {
+    left: 100%;
 }
 
 button:disabled {
-    background-color: #555;
+    background: linear-gradient(135deg, #555 0%, #333 100%);
     cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
 }
 
 /* Editor and Output Area */
 #code-editor {
     flex-grow: 1;
-    background-color: #1e1e1e;
-    color: #d4d4d4;
-    border: 1px solid #333;
-    border-radius: 5px;
-    padding: 1rem;
-    font-family: "SF Mono", "Fira Code", "Menlo", monospace;
-    font-size: 1rem;
-    line-height: 1.5;
+    background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%);
+    color: #e8e6f0;
+    border: 2px solid #4ecdc4;
+    border-radius: 16px;
+    padding: 2rem;
+    font-family: "SF Mono", "Fira Code", "JetBrains Mono", "Menlo", monospace;
+    font-size: 1.1rem;
+    line-height: 1.7;
     resize: none;
+    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    margin: 1rem 0;
+    min-height: 400px;
+}
+
+#code-editor:focus {
+    outline: none;
+    border-color: #61dafb;
+    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.2), 0 0 0 3px rgba(97, 218, 251, 0.3);
 }
 
 #output-area {
-    flex-grow: 1;
-    background-color: #1e1e1e;
-    color: #d4d4d4;
-    border: 1px solid #333;
-    border-radius: 5px;
-    padding: 1rem;
-    white-space: pre-wrap; /* Wrap long lines */
-    word-wrap: break-word; /* Break long words */
-    font-family: "SF Mono", "Fira Code", "Menlo", monospace;
+    flex-grow: 0;
+    background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%);
+    color: #e8e6f0;
+    border: 2px solid #ff6b6b;
+    border-radius: 16px;
+    padding: 2rem;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-family: "SF Mono", "Fira Code", "JetBrains Mono", "Menlo", monospace;
+    margin: 1rem 0 1.5rem;
+    min-height: 200px;
+    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-size: 1.1rem;
+    line-height: 1.7;
 }
 
 .error-text {
-    color: #f48771; /* A distinct error color */
-    font-weight: bold;
+    color: #ff6b6b;
+    font-weight: 600;
+    background: rgba(255, 107, 107, 0.1);
+    padding: 0.5rem;
+    border-radius: 6px;
+    border-left: 4px solid #ff6b6b;
+}
+
+/* AST Visualization Styles */
+.mermaid-container {
+    background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%);
+    border: 2px solid #ffd93d;
+    border-radius: 12px;
+    padding: 1.5rem;
+    overflow: auto;
+    min-height: 250px;
+    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.mermaid-container::before {
+    content: '🌳 AST Visualization';
+    position: absolute;
+    top: -12px;
+    left: 20px;
+    background: linear-gradient(135deg, #ffd93d 0%, #ff9a56 100%);
+    color: #1a1a2e;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(255, 217, 61, 0.3);
+}
+
+/* Mermaid Diagram Customization */
+.mermaid {
+    background-color: transparent;
+}
+
+/* Node text styling */
+.mermaid text {
+    fill: #ffffff !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    font-family: "SF Mono", "Fira Code", "JetBrains Mono", monospace !important;
+}
+
+/* Different node types with consistent styling */
+.mermaid .node rect {
+    fill: #667eea !important;
+    stroke: #4c63d2 !important;
+    stroke-width: 3px !important;
+    rx: 8px !important;
+    ry: 8px !important;
+}
+
+.mermaid .node circle {
+    fill: #11998e !important;
+    stroke: #0d7377 !important;
+    stroke-width: 3px !important;
+}
+
+.mermaid .node ellipse {
+    fill: #ff6b6b !important;
+    stroke: #ff5252 !important;
+    stroke-width: 3px !important;
+}
+
+.mermaid .node polygon {
+    fill: #ffd93d !important;
+    stroke: #ffcc02 !important;
+    stroke-width: 3px !important;
+}
+
+/* Edge styling for better visibility */
+.mermaid .edgePath .path {
+    stroke: #61dafb !important;
+    stroke-width: 3px !important;
+    stroke-linecap: round !important;
+    stroke-linejoin: round !important;
+}
+
+/* Edge labels with better visibility */
+.mermaid .edgeLabel {
+    background-color: rgba(255, 255, 255, 0.95) !important;
+    color: #1a1a2e !important;
+    font-weight: 700 !important;
+    font-size: 13px !important;
+    border-radius: 8px !important;
+    padding: 6px 12px !important;
+    border: 2px solid #4ecdc4 !important;
+    backdrop-filter: blur(4px) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+.mermaid .edgeLabel rect {
+    fill: rgba(255, 255, 255, 0.95) !important;
+    stroke: #4ecdc4 !important;
+    stroke-width: 2px !important;
+    rx: 8px !important;
+    ry: 8px !important;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2)) !important;
+}
+
+.mermaid .edgeLabel span {
+    color: #1a1a2e !important;
+    font-weight: 700 !important;
+    font-family: "SF Mono", "Fira Code", "JetBrains Mono", monospace !important;
+    text-shadow: none !important;
+}
+
+/* Alternative edge label style for better contrast */
+.mermaid .cluster .edgeLabel,
+.mermaid .edgeLabel.secondary {
+    background-color: rgba(78, 205, 196, 0.95) !important;
+    color: #ffffff !important;
+    border: 2px solid #ffffff !important;
+}
+
+.mermaid .cluster .edgeLabel rect,
+.mermaid .edgeLabel.secondary rect {
+    fill: rgba(78, 205, 196, 0.95) !important;
+    stroke: #ffffff !important;
+    stroke-width: 2px !important;
+}
+
+/* Hover effects */
+.mermaid .node:hover rect,
+.mermaid .node:hover circle,
+.mermaid .node:hover ellipse,
+.mermaid .node:hover polygon {
+    stroke-width: 4px !important;
+    opacity: 0.8 !important;
+}
+
+/* Enhanced edge label positioning and spacing */
+.mermaid .edgeLabel {
+    margin: 4px !important;
+    white-space: nowrap !important;
+    overflow: visible !important;
+    z-index: 10 !important;
+}
+
+/* Ensure edge labels are always readable */
+.mermaid .edgeLabel foreignObject {
+    overflow: visible !important;
+}
+
+.mermaid .edgeLabel div {
+    display: inline-block !important;
+    background-color: rgba(255, 255, 255, 0.95) !important;
+    color: #1a1a2e !important;
+    font-weight: 700 !important;
+    font-size: 13px !important;
+    border-radius: 8px !important;
+    padding: 6px 12px !important;
+    border: 2px solid #4ecdc4 !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Action Buttons Container */
+.action-buttons {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.ast-viewer-link {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 15px rgba(17, 153, 142, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.ast-viewer-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.ast-viewer-link:hover {
+    background: linear-gradient(135deg, #38ef7d 0%, #11998e 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(17, 153, 142, 0.4);
+}
+
+.ast-viewer-link:hover::before {
+    left: 100%;
+}
+
+/* Add special button styles for different actions */
+button[onclick*="runCode"] {
+    background: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%);
+    box-shadow: 0 4px 15px rgba(86, 171, 47, 0.3);
+}
+
+button[onclick*="runCode"]:hover {
+    background: linear-gradient(135deg, #a8e6cf 0%, #56ab2f 100%);
+    box-shadow: 0 6px 20px rgba(86, 171, 47, 0.4);
+}
+
+button[onclick*="clearEditor"] {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+}
+
+button[onclick*="clearEditor"]:hover {
+    background: linear-gradient(135deg, #ee5a52 0%, #ff6b6b 100%);
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+}
+
+/* Add scrollbar styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #4ecdc4, #61dafb);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #61dafb, #4ecdc4);
+}
+
+/* Responsive Layout */
+@media (max-width: 1024px) {
+    .container {
+        flex-direction: column;
+        padding: 1rem;
+        gap: 1.5rem;
+    }
+
+    .editor-pane,
+    .output-pane {
+        width: 100%;
+    }
+
+    header {
+        padding: 1.5rem;
+    }
+
+    header h1 {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .example-buttons {
+        justify-content: center;
+    }
+
+    button {
+        width: 100%;
+        margin: 0.2rem 0;
+    }
+
+    .action-buttons {
+        justify-content: center;
+    }
 }

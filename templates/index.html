@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>L25 Online Compiler</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
     <script>
+        // Initialize mermaid
+        mermaid.initialize({ startOnLoad: true });
+
         // Store examples passed from Flask. Using 'var' for better compatibility.
         var examples = {{ examples|tojson|safe }};
 
@@ -51,6 +55,45 @@
                 runButton.disabled = false;
             }
         }
+
+        async function visualizeAST() {
+            const editor = document.getElementById('code-editor');
+            const diagramDiv = document.getElementById('mermaid-diagram');
+            const visualizeButton = document.getElementById('visualize-button');
+            
+            visualizeButton.disabled = true;
+            diagramDiv.textContent = 'Generating AST...';
+
+            try {
+                const response = await fetch('/visualize', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ code: editor.value }),
+                });
+
+                const result = await response.json();
+
+                if (result.error) {
+                    diagramDiv.innerHTML = `<span class="error-text">Error: ${result.error}</span>`;
+                } else {
+                    // Clear previous diagram
+                    diagramDiv.innerHTML = '';
+                    // Create a new div for the diagram
+                    const newDiv = document.createElement('div');
+                    newDiv.className = 'mermaid';
+                    newDiv.textContent = result.mermaid;
+                    diagramDiv.appendChild(newDiv);
+                    // Re-render mermaid diagram
+                    mermaid.init(undefined, newDiv);
+                }
+            } catch (error) {
+                diagramDiv.innerHTML = `<span class="error-text">Network or Server Error: ${error}</span>`;
+            } finally {
+                visualizeButton.disabled = false;
+            }
+        }
     </script>
 </head>
 <body>
@@ -68,13 +111,19 @@
                     <button onclick="loadExample('full')">Full Features</button>
                     <button onclick="loadExample('try_catch')">Try/Catch</button>
                 </div>
-                <button id="run-button" onclick="runCode()">Run</button>
+                <div class="action-buttons">
+                    <button id="run-button" onclick="runCode()">Run</button>
+                    <button id="visualize-button" onclick="visualizeAST()">Visualize AST</button>
+                    <a href="/ast-viewer" class="ast-viewer-link" target="_blank">🌳 Open AST Viewer</a>
+                </div>
             </div>
             <textarea id="code-editor" spellcheck="false" rows="25"></textarea>
         </div>
         <div class="output-pane">
             <h2>Output</h2>
             <pre id="output-area"></pre>
+            <h2>AST Visualization</h2>
+            <div id="mermaid-diagram" class="mermaid-container"></div>
         </div>
     </main>
 </body>

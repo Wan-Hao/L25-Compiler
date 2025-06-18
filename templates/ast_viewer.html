@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AST Visualizer - L25 Compiler</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='ast_viewer.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'dark',
+            themeVariables: {
+                primaryColor: '#0e639c',
+                primaryTextColor: '#ffffff',
+                primaryBorderColor: '#9cdcfe',
+                lineColor: '#9cdcfe',
+                secondaryColor: '#252526',
+                background: '#1e1e1e',
+                mainBkg: '#252526'
+            },
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true
+            }
+        });
+
+        var examples = {{ examples|tojson|safe }};
+
+        function loadExample(name) {
+            const editor = document.getElementById('code-editor');
+            if (examples[name]) {
+                editor.value = examples[name];
+            }
+        }
+
+        async function visualizeAST() {
+            const editor = document.getElementById('code-editor');
+            const diagramDiv = document.getElementById('mermaid-diagram');
+            const visualizeButton = document.getElementById('visualize-button');
+            const errorDiv = document.getElementById('error-message');
+            
+            visualizeButton.disabled = true;
+            visualizeButton.textContent = 'Generating...';
+            diagramDiv.innerHTML = '<div class="loading">Generating AST visualization...</div>';
+            errorDiv.style.display = 'none';
+
+            try {
+                const response = await fetch('/visualize', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ code: editor.value }),
+                });
+
+                const result = await response.json();
+
+                if (result.error) {
+                    errorDiv.innerHTML = '<strong>Error:</strong> ' + result.error;
+                    errorDiv.style.display = 'block';
+                    diagramDiv.innerHTML = '';
+                } else {
+                    diagramDiv.innerHTML = '';
+                    errorDiv.style.display = 'none';
+                    
+                    const newDiv = document.createElement('div');
+                    newDiv.className = 'mermaid';
+                    newDiv.textContent = result.mermaid;
+                    diagramDiv.appendChild(newDiv);
+                    
+                    await mermaid.init(undefined, newDiv);
+                }
+            } catch (error) {
+                errorDiv.innerHTML = '<strong>Network Error:</strong> ' + error.message;
+                errorDiv.style.display = 'block';
+                diagramDiv.innerHTML = '';
+            } finally {
+                visualizeButton.disabled = false;
+                visualizeButton.textContent = 'Generate AST';
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>AST Visualizer</h1>
+            <nav>
+                <a href="/" class="nav-link">← Back to Compiler</a>
+            </nav>
+        </div>
+    </header>
+    
+    <main class="main-container">
+        <aside class="sidebar">
+            <div class="editor-section">
+                <h2>L25 Code</h2>
+                <div class="controls">
+                    <div class="example-buttons">
+                        <label>Examples:</label>
+                        <button onclick="loadExample('basic')" class="example-btn">Basic</button>
+                        <button onclick="loadExample('factorial')" class="example-btn">Factorial</button>
+                        <button onclick="loadExample('full')" class="example-btn">Full</button>
+                        <button onclick="loadExample('try_catch')" class="example-btn">Try/Catch</button>
+                    </div>
+                    <button id="visualize-button" onclick="visualizeAST()" class="primary-btn">
+                        Generate AST
+                    </button>
+                </div>
+                <textarea id="code-editor" placeholder="Enter your L25 code here..." spellcheck="false" rows="20"></textarea>
+            </div>
+        </aside>
+        
+        <section class="diagram-section">
+            <div class="diagram-header">
+                <h2>Abstract Syntax Tree</h2>
+            </div>
+            
+            <div id="error-message" class="error-message"></div>
+            
+            <div id="mermaid-diagram" class="diagram-container">
+                <div class="empty-state">
+                    <div class="empty-icon">🌳</div>
+                    <h3>No AST Generated Yet</h3>
+                    <p>Enter some L25 code and click "Generate AST" to visualize the abstract syntax tree.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
